@@ -34,8 +34,19 @@ window.location.href = '/'; // Redirección predeterminada al catálogo
 loginForm.addEventListener('submit', async function(e) {
 e.preventDefault();
 
-const username = document.getElementById('username').value;
-const password = document.getElementById('password').value;
+const username = document.getElementById('username').value.trim();
+const password = document.getElementById('password').value.trim();
+
+// Validar que solo contengan números y letras
+const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+if (!alphanumericRegex.test(username) || !alphanumericRegex.test(password)) {
+    showError('El usuario y la contraseña solo pueden contener letras y números.');
+    loginButton.disabled = false;
+    buttonText.textContent = 'Iniciar Sesión';
+    loadingIndicator.style.display = 'none';
+    return;
+}
+
 
 // Mostrar indicador de carga
 loginButton.disabled = true;
