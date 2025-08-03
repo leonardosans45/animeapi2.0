@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='downloads.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>{% if anime and anime.title %}{{ anime.title }} - {% endif %}Descargas - AnimeFLV</title>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
+        <div class="header-buttons">
+            <a href="{{ url_for('catalogo') }}" class="nav-btn">Catalog</a>
+            <a href="{{ url_for('trace_anime') }}" class="nav-btn">Trace</a>
+        </div>
+        <form id="searchForm" class="search-form">
+            <input type="text" id="searchInput" name="query" placeholder="Search anime by name..." autocomplete="off">
+            <button type="submit"><i class="fa fa-search"></i></button>
+            {% if token_authenticated %}
+<button type="button" class="user-icon"><i class="fa fa-user"></i></button>
+{% else %}
+<a href="{{ url_for('login') }}" class="join-btn">JOIN</a>
+{% endif %}
+            <div id="searchResults" class="search-results"></div>
+        </form>
+    </header>
+
+    <div class="container">
+        {% if anime %}
+            <div class="download-container">
+                <a href="{{ url_for('anime_detail', anime_id=anime.id) }}" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to anime</span>
+                </a>
+                
+                <h1 class="anime-title">{{ anime.title if anime.title else 'Anime' }}</h1>
+                
+                {% if selected_episode %}
+                    <h2 class="episode-title">
+                        <span>Episodio {{ selected_episode }}</span>
+                        <span class="episode-badge">Descarga Directa</span>
+                    </h2>
+                {% endif %}
+                
+                {% if error %}
+                    <div class="error-message">
+                        <i class="fa fa-exclamation-circle"></i> {{ error }}
+                    </div>
+                {% endif %}
+                
+                {% if episodes and episodes[0].download_links %}
+                    <div class="download-links">
+                        <div class="links-grid">
+                            {% for link in episodes[0].download_links %}
+                                <a href="{{ link.url }}" class="download-link" target="_blank" rel="noopener noreferrer">
+                                    <div style="display: flex; align-items: center;">
+                                        {% if 'mega' in link.server|lower %}
+                                            <i class="fab fa-mega"></i>
+                                        {% elif 'mediafire' in link.server|lower %}
+                                            <i class="fas fa-cloud-download-alt"></i>
+                                        {% elif 'google' in link.server|lower or 'drive' in link.server|lower %}
+                                            <i class="fab fa-google-drive"></i>
+                                        {% elif 'zippy' in link.server|lower %}
+                                            <i class="fas fa-file-archive"></i>
+                                        {% elif 'fembed' in link.server|lower %}
+                                            <i class="fas fa-play-circle"></i>
+                                        {% else %}
+                                            <i class="fas fa-link"></i>
+                                        {% endif %}
+                                        <span class="server-name">{{ link.server|title }}</span>
+                                    </div>
+                                    {% if link.quality %}
+                                        <span class="quality-tag">{{ link.quality }}</span>
+                                    {% endif %}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="no-links">
+                        <p>No se encontraron enlaces de descarga para este episodio.</p>
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="error-message">
+                <i class="fa fa-exclamation-circle"></i> No se encontró la información del anime.
+            </div>
+        {% endif %}
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function checkAuthLoop() {
+            if (!isAuthenticated()) {
+                removeAuthToken();
+                window.location.href = '/login';
+            }
+        }
+        checkAuthLoop();
+        setInterval(checkAuthLoop, 1000); // Revisa cada segundo
+    });
+</script>
+</body>
+</html>

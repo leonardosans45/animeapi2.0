@@ -1,0 +1,228 @@
+/* Downloads Page Styles */
+body {
+    color: white;
+    background-color: #121212;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    align-items: center !important;
+}
+
+/* Download Container */
+.download-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background: transparent;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #C00B0B;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.episode-title {
+    color: #C00B0B;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.download-links {
+    margin-top: 20px;
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.download-link {
+    display: block;
+    padding: 12px 15px;
+    background-color: transparent;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    border-left: 4px solid #C00B0B;
+}
+
+.download-link:hover {
+    background-color: #3a3a3a;
+    transform: translateX(5px);
+}
+
+.download-link i {
+    margin-right: 8px;
+    color: #E80E0E;
+}
+
+.server-name {
+    font-weight: bold;
+    color: #fff;
+}
+
+.quality-tag {
+    background-color: #7f052a;
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+.error-message {
+    background-color: #2a1a1a;
+    color: #E80E0E;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border-left: 4px solid #E80E0E;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.error-message i {
+    font-size: 1.2em;
+}
+
+.no-links {
+    color: #aaa;
+    font-style: italic;
+    text-align: center;
+    padding: 30px;
+    background-color: #2a2a2a;
+    border-radius: 4px;
+    grid-column: 1 / -1;
+}
+
+.episode-badge {
+    background-color: #E80E0E;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 0.7em;
+    margin-left: 10px;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .download-container {
+        padding: 15px;
+    }
+    
+    .links-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .anime-title {
+        font-size: 1.5em;
+    }
+    
+    .episode-title {
+        font-size: 1.2em;
+    }
+    
+    .back-link {
+        font-size: 1em;
+    }
+}
+
+/* Headings */
+h1, h2, h3 {
+    color: #fff;
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    color: #E80E0E;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin: 30px 0 15px;
+    border-bottom: 2px solid #E80E0E;
+    padding-bottom: 5px;
+}
+
+h3 {
+    font-size: 1.4em;
+    margin: 20px 0 10px;
+    color: #E80E0E;
+}
+
+/* No anime selected state */
+.no-anime-selected {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.browse-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #E80E0E;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.browse-btn:hover {
+    background-color: #C00B0B;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+    }
+    
+    h3 {
+        font-size: 1.2em;
+    }
+    
+    .links-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,111 @@
+body {
+font-family: Arial, Helvetica, sans-serif;
+background-image: url('img/fondo.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;   
+background-attachment: fixed;
+margin: 0;
+padding: 20px;
+}
+.login-container {
+max-width: 400px;
+margin: 0 auto;
+width: 100%;
+padding: 2rem;
+background: rgba(0, 0, 0, 0.5);
+border-radius: 15px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+backdrop-filter: blur(5px);
+animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(-20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.login-header {
+text-align: center;
+margin-bottom: 2rem;
+}
+.login-header h2 {
+color: #ff1a1a;
+font-weight: 700;
+margin-bottom: 0.5rem;
+}
+.login-header p {
+color: #880808;
+margin: 0;
+}
+.form-control {
+background: transparent !important;
+color: #fff !important;
+height: 50px;
+border-radius: 8px;
+border: 1px solid #880808 !important;
+padding: 0.75rem 1rem;
+transition: all 0.3s ease;
+}
+.form-control:focus {
+border-color: #6c757d;
+box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.25);
+outline: none;
+}
+.form-floating > label {
+color: #fff;
+padding: 0.75rem 1rem;
+}
+
+
+.btn-login {
+background: #E80E0E;
+border: none;
+width: 100%;
+padding: 12px;
+font-weight: bold;
+border-radius: 50px;
+color: white;
+text-transform: uppercase;
+letter-spacing: 1px;
+transition: all 0.3s ease;
+margin-top: 1rem;
+box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+.btn-login:hover {
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.alert {
+border-radius: 8px;
+border: none;
+}
+.form-text {
+font-size: 0.8rem;
+color: #E80E0E !important;
+}
+.login-footer {
+text-align: center;
+margin-top: 1.5rem;
+font-size: 0.9rem;
+}
+.login-footer a {
+color: #ff1a1a;
+text-decoration: none;
+font-weight: 500;
+transition: color 0.3s ease;
+}
+.login-footer a:hover {
+color: #E80E0E;
+}
+#loadingIndicator {
+display: none;
+width: 20px;
+height: 20px;
+border: 3px solid rgba(255, 255, 255, 0.3);
+border-radius: 50%;
+border-top-color: #fff;
+animation: spin 1s ease-in-out infinite;
+margin-right: 10px;
+}
+@keyframes spin {
+to { transform: rotate(360deg); }
+}

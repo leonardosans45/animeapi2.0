@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='animeD.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{{ url_for('static', filename='js/anime-detail.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+    <title>{{ anime.nombre }} - Details</title>
+    {% if anime.wallpaper %}
+    <link rel="preload" as="image" href="{{ anime.wallpaper }}" id="wallpaper-preload">
+    {% endif %}
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
+        <div class="header-buttons">
+            <a href="{{ url_for('catalogo') }}" class="nav-btn">Catalog</a>
+            <a href="{{ url_for('trace_anime') }}" class="nav-btn">Trace</a>
+        </div>
+        <form id="searchForm" class="search-form">
+            <input type="text" id="searchInput" name="query" placeholder="Search anime by name..." autocomplete="off">
+            <button type="submit"><i class="fa fa-search"></i></button>
+            {% if token_authenticated %}
+<button type="button" class="user-icon"><i class="fa fa-user"></i></button>
+{% else %}
+<a href="{{ url_for('login') }}" class="join-btn">JOIN</a>
+{% endif %}
+            <div id="searchResults" class="search-results"></div>
+        </form>
+    </header>
+
+    <div class="anime_wallpaper" id="wallpaper-container" 
+        {% if anime.wallpaper %} 
+            data-wallpaper="{{ anime.wallpaper|safe }}" 
+            style="background-image: url('{{ anime.wallpaper|safe }}');"
+        {% endif %}>
+    {% if not anime.wallpaper %}
+        <div class="no-wallpaper-message">
+            <p>No se encontró una imagen de alta resolución para este anime.</p>
+            <p>Por favor, intenta más tarde o busca otro anime.</p>
+        </div>
+    {% endif %}
+    </div>
+    <div class="content-wrapper">
+        <div class="anime_detail">
+            <div class="anime_poster">
+                <img src="{% if anime.imagen.startswith('http') %}{{ anime.imagen }}{% else %}{{ url_for('static', filename=anime.imagen) }}{% endif %}" alt="{{ anime.nombre }}">
+            </div>
+            <div class="characteristics">
+                <h1>{{ anime.nombre }}</h1>
+                <p><strong>Genre:</strong> {{ anime.genero }}</p>
+                <p><strong>Rating:</strong> {{ anime.rating }}</p>
+                <p><strong>Launch date:</strong> {{ anime.fecha_lanzamiento }}</p>
+                <p><strong>End date:</strong> {{ anime.fecha_termino or 'En emisión' }}</p>
+                <p><strong>Creator:</strong> {{ anime.creador }}</p>
+                <p><strong>Studio:</strong> {{ anime.estudio }}</p>
+                
+                <div class="synopsis">
+                    <h2>Synopsis</h2>
+                    <p>{{ anime.synopsis }}</p>
+                </div>
+                
+            </div>
+            
+    <div class="episodes-section">
+        <h2 class="section-title">Episodes</h2>
+        {% if anime.episodes and anime.episodes[0].episode_count > 0 %}
+            <div class="episode-grid">
+                {% for i in range(1, anime.episodes[0].episode_count + 1) %}
+                    <a href="{{ url_for('download_anime', anime_id=anime.id, animeflv_id=anime.animeflv_id, episode=i) }}" class="episode-item">
+                        <span class="episode-text">Episode {{ i }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-episodes">No se pudo obtener la lista de episodios para este anime.</p>
+        {% endif %}
+    </div>
+    
+    </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/anime-detail.js') }}" defer></script>
+</body>
+</html>

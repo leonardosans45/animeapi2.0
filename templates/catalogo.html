@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>anime catalog</title>
+</head>
+<body>
+    
+    <header>
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
+        <div class="header-buttons">
+            <a href="{{ url_for('catalogo') }}" class="nav-btn">Catalog</a>
+            <a href="{{ url_for('trace_anime') }}" class="nav-btn">Trace</a>
+        </div>
+        <form id="searchForm" class="search-form">
+            <input type="text" id="searchInput" name="query" placeholder="Search anime by name..." value="{{ request.args.get('query', '') }}" autocomplete="off">
+            <button type="submit"><i class="fa fa-search"></i></button>
+            {% if token_authenticated %}
+<button type="button" class="user-icon"><i class="fa fa-user"></i></button>
+{% else %}
+<a href="{{ url_for('login') }}" class="join-btn">JOIN</a>
+{% endif %}
+            <div id="searchResults" class="search-results"></div>
+        </form>
+    </header>
+
+    <div class="sort-options">
+        <button class="sort-btn" data-sort="Name" data-order="asc">Name</button>
+        <button class="sort-btn" data-sort="Rating" data-order="desc">Rating</button>
+        <button class="sort-btn" data-sort="Genre" data-order="asc">Genre</button>
+        <button class="sort-btn" data-sort="Episodes" data-order="asc">Episodes</button>
+    </div>
+
+    {% if error %}
+        <div class="alert error">{{ error }}</div>
+    {% endif %}
+    {% if anime_list|length == 0 and not error %}
+        <div class="alert empty">No anime found.</div>
+    {% endif %}
+
+    <div class="container">
+        {% for anime in anime_list %}
+        <div class="anime_container">
+            <div class="anime_image">
+                <img src="{{ anime.imagen }}" alt="{{ anime.nombre }}">
+            </div>
+            <div class="anime_info">
+                <h2>{{ anime.nombre }}</h2>
+                <p>Rating: {{ anime.rating if anime.rating is not none else 'N/A' }}</p>
+                <p>Genre: {{ anime.genero if anime.genero else 'N/A' }}</p>
+                <p>Episodes: {{ anime.episodios if anime.episodios is not none else 'N/A' }}</p>
+                
+                <a href="{{ url_for('anime_detail', anime_id=anime.id) }}">show details ↪</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/sort.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+</body>
+</html>
