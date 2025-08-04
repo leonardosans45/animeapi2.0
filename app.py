@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 # JWT Configuration
 app.config['SECRET_KEY'] = 'your-secret-key-1234'  # In production, use environment variable
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(seconds=30)  # Token expires in 30 seconds para pruebas rápidas
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=3)  # Token expires in 3 minutes
 
 # Admin credentials (in production, store hashed passwords in a database)
 ADMIN_CREDENTIALS = {
@@ -27,7 +27,7 @@ ADMIN_CREDENTIALS = {
 # Configuration
 ANILIST_GRAPHQL = 'https://graphql.anilist.co'
 ITEMS_PER_PAGE = 50  
-MAX_PAGES = 3  
+MAX_PAGES = 1  
 HEADERS = {}
 
 # Wallhaven configuration
@@ -1874,7 +1874,7 @@ def search_trace_moe(image_url=None, image_file=None):
         print(f"Unexpected error in search_trace_moe: {str(e)}")
         return {'error': f'An unexpected error occurred: {str(e)}'}
 
-@app.route('/trace')
+@app.route('/trace', methods=['GET', 'POST'])
 @token_required
 def trace_anime(current_user):
     """Handle trace.moe search requests"""

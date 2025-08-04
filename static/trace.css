@@ -279,11 +279,11 @@ select:focus {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
-    color: #333;
+    color: #ff4d4d;
 }
 
 .episode-info {
-    color: #666;
+    color: #e60000;
     margin-bottom: 0.5rem;
 }
 

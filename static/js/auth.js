@@ -1,7 +1,7 @@
 // Configuración
 const TOKEN_KEY = 'jwt_token';
 const TOKEN_EXPIRATION_KEY = 'token_expiration';
-const SESSION_TIMEOUT_MINUTES = 3; 
+const SESSION_TIMEOUT_MINUTES = 30; 
 
 // Almacenar el token y su tiempo de expiración
 function storeAuthToken(token) {

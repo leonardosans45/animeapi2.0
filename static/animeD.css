@@ -192,6 +192,12 @@ header {
   padding: 0 15px;
 }
 
+.episodes-section a {
+  text-decoration: none;
+  color: #E80E0E;
+  font-weight: bold;
+}
+
 .section-title {
   color: #E80E0E;
   font-size: 28px;
